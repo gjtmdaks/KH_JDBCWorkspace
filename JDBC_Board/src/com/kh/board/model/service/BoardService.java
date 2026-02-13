@@ -51,6 +51,8 @@ public interface BoardService {
 	 * 
 	 * @param boardNo : 삭제할 게시글 번호
 	 * @return 처리된 행의 갯수를 반환
+	 * 
+	 * ? 작성자(id) 상관없이 아무거나 삭제가능?
 	 */
 	int deleteBoard(int boardNo);
 }
