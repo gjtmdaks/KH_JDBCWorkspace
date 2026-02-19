@@ -28,8 +28,8 @@ public class BoardView {
 			String pwd = sc.nextLine();	
 			
 			if(bc.login(id, pwd)) {
-				mainMenu();
 				memberId = id;
+				mainMenu();
 				break;
 			}
 		}
@@ -83,14 +83,12 @@ public class BoardView {
 	 * 
 	 * */
 	public void selectBoard() {
-		System.out.println("게시글 번호\t게시글 제목\t게시글 작성 날짜");
-		
 		System.out.println("### 게시글 상세 조회 ###");
 		System.out.print("게시글 번호 : ");
-		int num = Integer.parseInt(sc.nextLine());
+		int bno = Integer.parseInt(sc.nextLine());
 		
 		System.out.println("게시글 내용");
-		bc.selectBoard(num);
+		bc.selectBoard(bno);
 	}
 	
 	/** 
@@ -99,9 +97,10 @@ public class BoardView {
 	 * */
 	public void insertBoard() {
 		System.out.println("### 게시글 등록 ###");
-		System.out.println("게시글 제목");
+		System.out.print("게시글 제목 : ");
 		String title = sc.nextLine();
-		System.out.println("내용");
+		System.out.println("게시글 내용");
+		System.out.print("=> ");
 		String content = sc.nextLine();
 		
 		bc.insertBoard(memberId, title, content);
@@ -113,12 +112,15 @@ public class BoardView {
 	 * */
 	public void updateBoard() {
 		System.out.println("### 게시글 수정 ###");
-		System.out.println("수정할 게시글 번호");
-		int num = Integer.parseInt(sc.nextLine());
+		System.out.print("수정할 게시글 번호 : ");
+		int bno = Integer.parseInt(sc.nextLine());
+		System.out.print("수정할 제목 : ");
+		String title = sc.nextLine();
 		System.out.println("수정할 내용");
+		System.out.print("=> ");
 		String content = sc.nextLine();
 		
-		bc.updateBoard(memberId, num, content);
+		bc.updateBoard(memberId, bno, title, content);
 	}
 	
 	/** 
@@ -127,19 +129,19 @@ public class BoardView {
 	 * */
 	public void deleteBoard() {
 		System.out.println("### 게시글 삭제 ###");
-		System.out.println("삭제할 게시글 번호");
-		int num = Integer.parseInt(sc.nextLine());
+		System.out.print("삭제할 게시글 번호 : ");
+		int bno = Integer.parseInt(sc.nextLine());
 		
-		bc.deleteBoard(memberId, num);
+		bc.deleteBoard(memberId, bno);
 	}
 	
 	// -- 서비스 요청 처리후 사용자가 보게될 응답 View
-	public void displaySuccess(String string) {
-		System.out.println(string);
+	public void displaySuccess(String message) {
+		System.out.println(message);
 	}
 
-	public void displayFail(String string) {
-		System.out.println(string);
+	public void displayFail(String message) {
+		System.out.println(message);
 	}
 
 	public void displayNodata(String message) {
@@ -150,14 +152,23 @@ public class BoardView {
 	public void displayList(List<Board> list) {
 
 		System.out.println("\n조회된 데이터는 " + list.size() + "건 입니다.\n");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
+		for(Board b : list) {
+	        System.out.printf("%d\t%s\t%s\t%s\n",
+	            b.getBno(),
+	            b.getTitle(),
+	            b.getWriter(),
+	            b.getCreate_date()
+	        );
+	    }
 	}
 	
 	public void displayOne(Board b) {
 
-		System.out.println("\n조회된 데이터는 다음과 같습니다.");
-		System.out.println(b);
+		System.out.println("번호 : " + b.getBno());
+	    System.out.println("제목 : " + b.getTitle());
+	    System.out.println("작성자 : " + b.getWriter());
+	    System.out.println("작성일 : " + b.getCreate_date());
+	    System.out.println("내용");
+	    System.out.println("=> "+b.getContent());
 	}
 }

@@ -12,15 +12,7 @@ public interface BoardService {
 	 * @param MemberPwd : 사용자가 전달한 pwd값
 	 * @return 조회된 사용자의 수
 	 */
-	int login(String memberId, String MemberPwd);
-
-	/**
-	 * 게시글 등록용 메서드
-	 * 
-	 * @param b : 등록할 게시글의 정보가 담긴 객체
-	 * @return 등록된 행의 갯수를 반환.
-	 */
-	int insertBoard(Board b);
+	int login(String memberId, String memberPwd);
 
 	/**
 	 * 게시글 목록 조회용 메서드
@@ -38,13 +30,21 @@ public interface BoardService {
 	Board selectBoard(int boardNo);
 
 	/**
+	 * 게시글 등록용 메서드
+	 * 
+	 * @param b : 등록할 게시글의 정보가 담긴 객체
+	 * @return 등록된 행의 갯수를 반환.
+	 */
+	int insertBoard(String memberId, Board b);
+
+	/**
 	 * 게시글 수정 메서드
 	 * 
 	 * @param boardNo : 수정할 게시글 번호
 	 * @param B       : 수정할 게시글 정보(게시글 제목, 내용만 수정가능)
 	 * @return 처리된 행의 갯수를 반환
 	 */
-	int updateBoard(int boardNo, Board b);
+	int updateBoard(String memberId, Board b);
 
 	/**
 	 * 게시글 삭제 메서드
@@ -54,5 +54,5 @@ public interface BoardService {
 	 * 
 	 * ? 작성자(id) 상관없이 아무거나 삭제가능?
 	 */
-	int deleteBoard(int boardNo);
+	int deleteBoard(String memberId, int boardNo);
 }
